@@ -5,7 +5,7 @@ import { getFirestore, collection, addDoc, getDocs, query, orderBy, where } from
 const firebaseConfig = {
     apiKey: "AIzaSyB_FrZNb1q2fPl8RI9mSIb8zKZzchOWOR8",
     authDomain: "undangan-zila.firebaseapp.com",
-    projectId: "undangan-f9f5c",
+    projectId: "undangan-zila",
     storageBucket: "undangan-zila.firebasestorage.app",
     messagingSenderId: "663200651385",
     appId: "1:663200651385:web:26b9c700b32de7c27f1ca8"
