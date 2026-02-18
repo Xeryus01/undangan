@@ -4,9 +4,9 @@
 ✅ Frontend integration selesai. Data RSVP & Ucapan akan otomatis menyimpan ke Firestore.
 
 ## Firebase Project Details
-- **Project ID:** `undangan-f9f5c`
+- **Project ID:** `undangan-zila`
 - **Database:** Firestore (Google Cloud Firestore)
-- **Web App Name:** undangan-f9f5c
+- **Web App Name:** undangan-zila
 
 ## Data Structure
 
