@@ -861,7 +861,6 @@ lightbox.addEventListener("mouseup", (e) => {
 lightbox.addEventListener("contextmenu", (e) => {
     e.preventDefault();
 });
-});
 
 
 // Inisialisasi data dari server setelah DOM siap dan page fully loaded
