@@ -842,104 +842,54 @@
     </section>
 
     
-    
-    <!-- LIVESTREAM 
-    <section id="livestream" class="section-decor">
-      <div class="container">
-        <h2 class="section-title">Saksikan Acara</h2>
-        <p class="section-subtitle">Live Streaming</p>
-        <div class="section-divider"></div>
 
-        <div class="card-soft reveal hover-rise">
-          <div class="livestream-card">
-            <div class="livestream-card-inner">
-              <div class="livestream-header">
-                <div class="livestream-icon">📹</div>
-                <div>
-                  <div class="livestream-title">Saksikan Acara Kami</div>
-                  <div class="livestream-sub">Ikuti momen spesial secara langsung</div>
-                </div>
-              </div>
-              <p class="livestream-text">
-                Bagi yang tidak bisa hadir secara langsung, Anda dapat menyaksikan acara secara live streaming. 
-                Tautan akan tersedia pada hari acara.
-              </p>
-              <div class="livestream-links">
-                <div class="livestream-link-item">
-                  <div class="livestream-label">📹 Link Live Streaming 1</div>
-                  <div class="livestream-value" id="live1">Akan diupdate saat acara dimulai</div>
-                </div>
-                <div class="livestream-link-item">
-                  <div class="livestream-label">📹 Link Live Streaming 2</div>
-                  <div class="livestream-value" id="live2">Akan diupdate saat acara dimulai</div>
-                </div>
-              </div>
-              <div class="livestream-footer">
-                <span class="livestream-hint">
-                  Pastikan koneksi internet Anda stabil untuk menyaksikan live streaming dengan lancar.
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
--->
-    
-
-    <!-- SHARE 
-    <section id="share" class="section-decor">
-      <div class="container">
-        <h2 class="section-title">Bagikan Undangan</h2>
-        <p class="section-subtitle">Sebarkan Kebahagiaan</p>
-        <div class="section-divider"></div>
-
-        <div class="card-soft reveal hover-rise">
-          <div class="share-card">
-            <div class="share-card-inner">
-              <div class="share-header">
-                <div class="share-icon">📣</div>
-                <div>
-                  <div class="share-title">Sebarkan Undangan Ini</div>
-                  <div class="share-sub">Ajak orang-orang tersayang merasakan kebahagiaan yang sama</div>
-                </div>
-              </div>
-              <p class="share-text">
-                Bantu kami menyebarkan kabar bahagia ini kepada keluarga, sahabat, dan orang-orang terdekat.
-                Anda dapat membagikan undangan ini melalui aplikasi pesan, media sosial, ataupun menyalin link.
-              </p>
-              <div class="share-actions">
-                <button class="share-btn" id="btnShareNative">
-                  <span>📲</span><span>Share via App</span>
-                </button>
-                <button class="share-btn" id="btnShareWA">
-                  <span>💚</span><span>Share WhatsApp</span>
-                </button>
-                <button class="share-btn" id="btnCopyLink">
-                  <span>🔗</span><span>Copy Link</span>
-                </button>
-              </div>
-              <div class="share-footer">
-                <span class="share-hint">
-                  Bagikan kepada orang yang Anda sayangi, agar doa dan kebahagiaan semakin meluas.
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
--->
 
   <!-- LIGHTBOX / CAROUSEL -->
-  <div id="lightbox">
-    <div class="lightbox-inner">
-      <button class="lightbox-close" id="lightboxClose">Tutup ✕</button>
-      <button class="lightbox-nav prev" id="lightboxPrev">‹</button>
-      <button class="lightbox-nav next" id="lightboxNext">›</button>
-      <div class="lightbox-img-wrapper">
-        <img id="lightboxImg" src="" alt="Preview Foto">
+  <div id="lightbox" class="lightbox-overlay">
+    <div class="lightbox-backdrop"></div>
+    <div class="lightbox-container">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Tutup galeri">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      
+      <div class="lightbox-content">
+        <div class="lightbox-swipe-hint" id="lightboxSwipeHint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+          Geser untuk navigasi
+        </div>
+        <div class="lightbox-image-container">
+          <div class="lightbox-loading">
+            <div class="loading-spinner"></div>
+          </div>
+          <img id="lightboxImg" src="" alt="Preview Foto" loading="lazy">
+        </div>
+        
+        <div class="lightbox-info">
+          <div class="lightbox-counter">
+            <span id="lightboxCurrent">1</span>
+            <span class="counter-separator">/</span>
+            <span id="lightboxTotal">1</span>
+          </div>
+          
+          <div class="lightbox-actions">
+            <button class="lightbox-zoom" id="lightboxZoom" aria-label="Zoom gambar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+                <line x1="13" y1="9" x2="9" y2="13"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

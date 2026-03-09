@@ -36,53 +36,102 @@ const bgm = document.getElementById("bgm");
 const fabMusicLabel = document.getElementById("fabMusicLabel");
 let bgmStarted = false;
 
-btnOpenCover.addEventListener("click", () => {
-    cover.style.display = "none";
-    document.body.classList.remove("locked");
-    document.body.classList.add("unlocked");
-    document.getElementById("hero").scrollIntoView({ behavior: "smooth" });
+if (btnOpenCover) {
+    btnOpenCover.addEventListener("click", () => {
+        // Hide cover
+        if (cover) {
+            cover.style.display = "none";
+        }
+        
+        // Unlock body
+        document.body.classList.remove("locked");
+        document.body.classList.add("unlocked");
+        
+        // Scroll to hero section
+        const hero = document.getElementById("hero");
+        if (hero) {
+            hero.scrollIntoView({ behavior: "smooth" });
+        }
 
-    if (bgm && !bgmStarted) {
-    bgm.volume = 0.8;
-    bgm.play().then(() => {
-        bgmStarted = true;
-        fabMusicLabel.textContent = "Musik Menyala";
-    }).catch(() => {});
-    }
-});
+        // Try to play background music (with user interaction)
+        if (bgm && !bgmStarted) {
+            bgm.volume = 0.8;
+            bgm.play().then(() => {
+                bgmStarted = true;
+                if (fabMusicLabel) {
+                    fabMusicLabel.textContent = "Musik Menyala";
+                }
+            }).catch((error) => {
+                console.log("Audio play failed:", error);
+                // Music will be handled by the music toggle button instead
+            });
+        }
+    });
+}
 
 const navToggle = document.getElementById("navToggle");
 const navLinks = document.getElementById("navLinks");
-navToggle.addEventListener("click", () => {
-    navLinks.classList.toggle("open");
-});
+
+if (navToggle && navLinks) {
+    navToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("open");
+    });
+}
+
 document.querySelectorAll(".nav-links button[data-scroll]").forEach((btn) => {
     btn.addEventListener("click", () => {
-    const target = btn.getAttribute("data-scroll");
-    const el = document.querySelector(target);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-    if (window.innerWidth <= 768) navLinks.classList.remove("open");
+        const target = btn.getAttribute("data-scroll");
+        const el = document.querySelector(target);
+        if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+        }
+        if (navLinks && window.innerWidth <= 768) {
+            navLinks.classList.remove("open");
+        }
     });
 });
 
-document.getElementById("fabRSVP").addEventListener("click", () => {
-    document.getElementById("rsvp").scrollIntoView({ behavior: "smooth" });
-});
-document.getElementById("fabMusic").addEventListener("click", () => {
-    if (!bgm) return;
-    if (bgm.paused) {
-    bgm.play().then(() => {
-        bgmStarted = true;
-        fabMusicLabel.textContent = "Musik Menyala";
-    }).catch(() => {});
-    } else {
-    bgm.pause();
-    fabMusicLabel.textContent = "Musik Dimatikan";
-    }
-});
-document.getElementById("backToTop").addEventListener("click", () => {
-    document.getElementById("hero").scrollIntoView({ behavior: "smooth" });
-});
+const fabRSVP = document.getElementById("fabRSVP");
+if (fabRSVP) {
+    fabRSVP.addEventListener("click", () => {
+        const rsvp = document.getElementById("rsvp");
+        if (rsvp) {
+            rsvp.scrollIntoView({ behavior: "smooth" });
+        }
+    });
+}
+const fabMusic = document.getElementById("fabMusic");
+if (fabMusic) {
+    fabMusic.addEventListener("click", () => {
+        if (!bgm) return;
+        if (bgm.paused) {
+            bgm.play().then(() => {
+                bgmStarted = true;
+                if (fabMusicLabel) {
+                    fabMusicLabel.textContent = "Musik Menyala";
+                }
+            }).catch((error) => {
+                console.log("Audio play failed:", error);
+            });
+        } else {
+            bgm.pause();
+            bgmStarted = false;
+            if (fabMusicLabel) {
+                fabMusicLabel.textContent = "Musik Dimatikan";
+            }
+        }
+    });
+}
+
+const backToTop = document.getElementById("backToTop");
+if (backToTop) {
+    backToTop.addEventListener("click", () => {
+        const hero = document.getElementById("hero");
+        if (hero) {
+            hero.scrollIntoView({ behavior: "smooth" });
+        }
+    });
+}
 
 // Reveal on scroll
 if ("IntersectionObserver" in window) {
@@ -111,29 +160,31 @@ if ("IntersectionObserver" in window) {
     const secondsEl = document.getElementById("cd-seconds");
     const finishMsg = document.getElementById("countdown-finish");
     const countdownBox = document.getElementById("countdown");
+    let timer;
 
     function updateCountdown() {
-    const now = new Date();
-    const diff = targetDate.getTime() - now.getTime();
-    if (diff <= 0) {
-        countdownBox.style.display = "none";
-        finishMsg.style.display = "block";
-        clearInterval(timer);
-        return;
-    }
-    const totalSeconds = Math.floor(diff / 1000);
-    const days = Math.floor(totalSeconds / (3600 * 24));
-    const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
+        const now = new Date();
+        const diff = targetDate.getTime() - now.getTime();
+        if (diff <= 0) {
+            if (countdownBox) countdownBox.style.display = "none";
+            if (finishMsg) finishMsg.style.display = "block";
+            if (timer) clearInterval(timer);
+            return;
+        }
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / (3600 * 24));
+        const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
 
-    daysEl.textContent = String(days).padStart(2, "0");
-    hoursEl.textContent = String(hours).padStart(2, "0");
-    minutesEl.textContent = String(minutes).padStart(2, "0");
-    secondsEl.textContent = String(seconds).padStart(2, "0");
+        if (daysEl) daysEl.textContent = String(days).padStart(2, "0");
+        if (hoursEl) hoursEl.textContent = String(hours).padStart(2, "0");
+        if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, "0");
+        if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, "0");
     }
+    
     updateCountdown();
-    const timer = setInterval(updateCountdown, 1000);
+    timer = setInterval(updateCountdown, 1000);
 })();
 
 // Salin teks (rekening / alamat)
@@ -580,123 +631,238 @@ if (guestFormEl) {
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
 const lightboxClose = document.getElementById("lightboxClose");
-const lightboxPrev = document.getElementById("lightboxPrev");
-const lightboxNext = document.getElementById("lightboxNext");
+const lightboxZoom = document.getElementById("lightboxZoom");
+const lightboxCurrent = document.getElementById("lightboxCurrent");
+const lightboxTotal = document.getElementById("lightboxTotal");
+const lightboxLoading = document.querySelector(".lightbox-loading");
+const lightboxSwipeHint = document.getElementById("lightboxSwipeHint");
 const galleryItems = Array.from(document.querySelectorAll(".gallery-item img"));
 let currentGalleryIndex = 0;
+let isZoomed = false;
+
+function updateCounter() {
+    if (lightboxCurrent && lightboxTotal) {
+        lightboxCurrent.textContent = currentGalleryIndex + 1;
+        lightboxTotal.textContent = galleryItems.length;
+    }
+}
+
+function showLoading() {
+    if (lightboxLoading) {
+        lightboxLoading.classList.add("active");
+    }
+}
+
+function hideLoading() {
+    if (lightboxLoading) {
+        lightboxLoading.classList.remove("active");
+    }
+}
 
 function openLightbox(index) {
     if (!galleryItems.length) return;
     if (index < 0 || index >= galleryItems.length) index = 0;
     currentGalleryIndex = index;
-    lightboxImg.src = galleryItems[index].src;
+    isZoomed = false;
+
+    // Show loading state
+    showLoading();
+
+    // Update counter
+    updateCounter();
+
+    // Preload image
+    const img = new Image();
+    img.onload = function() {
+        lightboxImg.src = galleryItems[index].src;
+        lightboxImg.classList.remove("zoomed");
+        hideLoading();
+    };
+    img.src = galleryItems[index].src;
+
+    // Show lightbox with animation
     lightbox.classList.add("open");
     document.body.classList.add("locked");
+
+    // Show swipe hint for mobile/touch devices
+    if (lightboxSwipeHint && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+        lightboxSwipeHint.classList.add("show");
+        setTimeout(() => {
+            if (lightboxSwipeHint) {
+                lightboxSwipeHint.classList.remove("show");
+            }
+        }, 3000); // Hide hint after 3 seconds
+    }
+
+    // Focus management
+    if (lightboxClose) {
+        lightboxClose.focus();
+    }
 }
 
 function closeLightbox() {
     lightbox.classList.remove("open");
     document.body.classList.remove("locked");
+    isZoomed = false;
+    lightboxImg.classList.remove("zoomed");
 }
 
 function nextGallery(delta) {
     if (!galleryItems.length) return;
     currentGalleryIndex = (currentGalleryIndex + delta + galleryItems.length) % galleryItems.length;
-    lightboxImg.src = galleryItems[currentGalleryIndex].src;
+
+    // Show loading for next image
+    showLoading();
+
+    // Update counter
+    updateCounter();
+
+    // Preload and set new image
+    const img = new Image();
+    img.onload = function() {
+        lightboxImg.src = galleryItems[currentGalleryIndex].src;
+        lightboxImg.classList.remove("zoomed");
+        isZoomed = false;
+        hideLoading();
+    };
+    img.src = galleryItems[currentGalleryIndex].src;
 }
 
+function toggleZoom() {
+    if (!lightboxImg.src) return;
+
+    isZoomed = !isZoomed;
+    lightboxImg.classList.toggle("zoomed");
+
+    // Update zoom button icon (could be enhanced with different icons)
+    if (lightboxZoom) {
+        const icon = lightboxZoom.querySelector("svg");
+        if (icon) {
+            if (isZoomed) {
+                // Change to zoom out icon
+                icon.innerHTML = '<circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path><line x1="9" y1="9" x2="13" y2="13"></line>';
+            } else {
+                // Change to zoom in icon
+                icon.innerHTML = '<circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path><line x1="13" y1="9" x2="9" y2="13"></line>';
+            }
+        }
+    }
+}
+
+// Initialize gallery
 galleryItems.forEach((img, idx) => {
     img.parentElement.addEventListener("click", () => openLightbox(idx));
 });
 
+// Event listeners
 if (lightboxClose) {
     lightboxClose.addEventListener("click", closeLightbox);
 }
-if (lightboxPrev) {
-    lightboxPrev.addEventListener("click", () => nextGallery(-1));
+if (lightboxZoom) {
+    lightboxZoom.addEventListener("click", toggleZoom);
 }
-if (lightboxNext) {
-    lightboxNext.addEventListener("click", () => nextGallery(1));
-}
+
+// Click outside to close
 lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) {
-    closeLightbox();
+    if (e.target === lightbox || e.target.classList.contains("lightbox-backdrop")) {
+        closeLightbox();
     }
 });
+
+// Keyboard navigation
 document.addEventListener("keydown", (e) => {
     if (!lightbox.classList.contains("open")) return;
-    if (e.key === "Escape") closeLightbox();
-    if (e.key === "ArrowRight") nextGallery(1);
-    if (e.key === "ArrowLeft") nextGallery(-1);
+
+    switch (e.key) {
+        case "Escape":
+            closeLightbox();
+            break;
+        case "z":
+        case "Z":
+            toggleZoom();
+            break;
+    }
 });
 
-/* ================== SHARE ================== */
-const btnShareNative = document.getElementById("btnShareNative");
-const btnShareWA = document.getElementById("btnShareWA");
-const btnCopyLink = document.getElementById("btnCopyLink");
+// Touch/swipe and mouse drag support
+let touchStartX = 0;
+let touchStartY = 0;
+let isDragging = false;
+let dragThreshold = 50;
 
-const shareTitle = "Undangan Pernikahan Dwi Unzila Putri & Ahmad Bakri";
-const shareText = "Dengan hormat, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri pernikahan Dwi Unzila Putri & Ahmad Bakri pada Minggu, 29 Maret 2026 (Akad: 08.00 WIB, Resepsi: 10.00 WIB) di Gedung Diamond, Kota Pangkal Pinang.";
-const shareUrl = window.location.href;
+lightbox.addEventListener("touchstart", (e) => {
+    if (isZoomed) return; // Don't allow swipe when zoomed
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+    isDragging = true;
+});
 
-if (btnShareNative) {
-    btnShareNative.addEventListener("click", async () => {
-    if (navigator.share) {
-        try {
-        await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
-        } catch (err) {
-        // Share dibatalkan / gagal
-        }
-    } else {
-        // fallback copy
-        if (navigator.clipboard) {
-        await navigator.clipboard.writeText(shareUrl);
-        alert("Link undangan sudah disalin.");
+lightbox.addEventListener("touchmove", (e) => {
+    if (!isDragging || isZoomed) return;
+    e.preventDefault(); // Prevent scrolling
+});
+
+lightbox.addEventListener("touchend", (e) => {
+    if (!isDragging || isZoomed) return;
+    
+    const touchEndX = e.changedTouches[0].screenX;
+    const touchEndY = e.changedTouches[0].screenY;
+    const diffX = touchStartX - touchEndX;
+    const diffY = Math.abs(touchStartY - touchEndY);
+    
+    // Only trigger swipe if horizontal movement is greater than vertical
+    if (Math.abs(diffX) > dragThreshold && Math.abs(diffX) > diffY) {
+        if (diffX > 0) {
+            nextGallery(1); // Swipe left - next image
         } else {
-        alert("Silakan salin link undangan langsung dari address bar browser.");
+            nextGallery(-1); // Swipe right - previous image
         }
     }
-    });
-}
+    
+    isDragging = false;
+});
 
-if (btnShareWA) {
-    btnShareWA.addEventListener("click", () => {
-    const text = encodeURIComponent(
-        "Assalamu'alaikum,\n\n" +
-        "Dengan hormat, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri pernikahan Dwi Unzila Putri & Ahmad Bakri.\n\n" +
-        "Hari/Tanggal: Minggu, 29 Maret 2026\n" +
-        "Akad: 08.00 WIB\n" +
-        "Resepsi: 10.00 - 13.00 WIB\n" +
-        "Tempat: Gedung Diamond, Kec. Girimaya, Kota Pangkal Pinang\n\n" +
-        "Link undangan lengkap:\n" + shareUrl + "\n\n" +
-        "Mohon konfirmasi kehadiran melalui fitur RSVP di halaman undangan ini.\n\n" +
-        "Terima kasih atas doa dan dukungan Anda."
-    );
-    const waUrl = "https://wa.me/?text=" + text;
-    window.open(waUrl, "_blank");
-    });
-}
+// Mouse drag support for desktop
+lightbox.addEventListener("mousedown", (e) => {
+    if (isZoomed) return;
+    touchStartX = e.screenX;
+    touchStartY = e.screenY;
+    isDragging = true;
+    lightbox.style.cursor = 'grabbing';
+});
 
-if (btnCopyLink) {
-    btnCopyLink.addEventListener("click", async () => {
-    try {
-        if (navigator.clipboard) {
-        await navigator.clipboard.writeText(shareUrl);
-        alert("Link undangan berhasil disalin.");
+lightbox.addEventListener("mousemove", (e) => {
+    if (!isDragging || isZoomed) return;
+    e.preventDefault();
+});
+
+lightbox.addEventListener("mouseup", (e) => {
+    if (!isDragging || isZoomed) return;
+    
+    const mouseEndX = e.screenX;
+    const mouseEndY = e.screenY;
+    const diffX = touchStartX - mouseEndX;
+    const diffY = Math.abs(touchStartY - mouseEndY);
+    
+    // Only trigger drag if horizontal movement is greater than vertical
+    if (Math.abs(diffX) > dragThreshold && Math.abs(diffX) > diffY) {
+        if (diffX > 0) {
+            nextGallery(1); // Drag left - next image
         } else {
-        const temp = document.createElement("textarea");
-        temp.value = shareUrl;
-        document.body.appendChild(temp);
-        temp.select();
-        document.execCommand("copy");
-        document.body.removeChild(temp);
-        alert("Link undangan berhasil disalin.");
+            nextGallery(-1); // Drag right - previous image
         }
-    } catch (err) {
-        alert("Gagal menyalin link. Silakan salin langsung dari address bar.");
     }
-    });
-}
+    
+    isDragging = false;
+    lightbox.style.cursor = '';
+});
+
+// Prevent context menu on right click in lightbox
+lightbox.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+});
+});
+
 
 // Inisialisasi data dari server setelah DOM siap dan page fully loaded
 document.addEventListener("DOMContentLoaded", () => {
