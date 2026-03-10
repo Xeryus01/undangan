@@ -2345,13 +2345,10 @@ footer {
     margin: 0.4rem auto 0;
 }
 .fab-credit {
-    background: linear-gradient(135deg, rgba(196, 154, 108, 0.4) 0%, rgba(209, 166, 117, 0.3) 100%);
+    background: rgba(25, 18, 9, 0.96);
     color: #f9e6cf;
-    border: 1.5px solid rgba(196, 154, 108, 0.6);
+    border: 1.5px solid rgba(196, 154, 108, 0.7);
     transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-    padding: 0.6rem 1rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
     position: relative;
     overflow: hidden;
 }
@@ -2363,7 +2360,7 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba(196, 154, 108, 0.15) 0%, transparent 100%);
     opacity: 0;
     transition: opacity 0.35s ease;
     pointer-events: none;
@@ -2371,16 +2368,32 @@ footer {
     border-radius: 999px;
 }
 
+.fab-credit::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: rgba(196, 154, 108, 0.8);
+    transition: width 0.35s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
 .fab-credit:hover {
-    background: linear-gradient(135deg, var(--primary) 0%, rgba(196, 154, 108, 0.85) 100%);
-    border-color: rgba(196, 154, 108, 0.9);
-    color: #ffffff;
-    box-shadow: 0 14px 32px rgba(196, 154, 108, 0.35), inset 0 1px 0 rgba(255,255,255,0.4);
-    transform: scale(1.08) translateY(-2px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.3), 0 0 16px rgba(196, 154, 108, 0.4);
+    color: var(--primary);
 }
 
 .fab-credit:hover::before {
     opacity: 1;
+}
+
+.fab-credit:hover::after {
+    width: 70%;
 }
 
 .fab-credit span {
@@ -2389,9 +2402,16 @@ footer {
 }
 
 .fab-credit span.icon {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     display: inline-block;
     animation: twinkleStar 2s ease-in-out infinite;
+}
+
+.instagram-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    display: inline-block;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path stroke="%23f9e6cf" stroke-width="2" d="M16 2H8C4.686 2 2 4.686 2 8v8c0 3.314 2.686 6 6 6h8c3.314 0 6-2.686 6-6V8c0-3.314-2.686-6-6-6z" fill="none"/><circle cx="12" cy="12" r="3.5" stroke="%23f9e6cf" stroke-width="2" fill="none"/><circle cx="17.5" cy="6.5" r="1.5" fill="%23f9e6cf"/></svg>') center/contain no-repeat;
 }
 
 @keyframes twinkleStar {
