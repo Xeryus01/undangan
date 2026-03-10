@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sebar Undangan WhatsApp - Dwi Unzila Putri & Ahmad Bakri</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Generator untuk sebar undangan pernikahan Dwi Unzila Putri & Ahmad Bakri via WhatsApp">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+        --primary: #c49a6c;
+        --primary-deep: #a1703d;
+        --bg: #f7f2ea;
+        --bg-soft: #fdf8f2;
+        --text: #2f2720;
+        --card-bg: #ffffff;
+        --shadow-soft: 0 14px 32px rgba(0,0,0,0.06);
+        --radius-xl: 24px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+        font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        background: radial-gradient(circle at top, #fdf3e4 0, #f7f2ea 38%, #f2e7db 100%);
+        color: var(--text);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 1.5rem;
+    }
+
+    header {
+        text-align: center;
+        padding: 2rem 0;
+        border-bottom: 2px solid var(--primary);
+        margin-bottom: 2rem;
+    }
+
+    header h1 {
+        font-family: "Cinzel", serif;
+        font-size: 1.8rem;
+        color: var(--primary-deep);
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.05em;
+    }
+
+    header p {
+        font-size: 0.95rem;
+        color: #666;
+    }
+
+    .form-section {
+        background: var(--card-bg);
+        border-radius: var(--radius-xl);
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow-soft);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group:last-child {
+        margin-bottom: 0;
+    }
+
+    label {
+        display: block;
+        font-weight: 600;
+        color: var(--primary-deep);
+        margin-bottom: 0.7rem;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    textarea, select {
+        width: 100%;
+        padding: 0.85rem;
+        border: 2px solid #e8dcc8;
+        border-radius: 12px;
+        font-family: "Nunito", sans-serif;
+        font-size: 0.95rem;
+        color: var(--text);
+        transition: all 0.3s ease;
+    }
+
+    textarea:focus, select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(196, 154, 108, 0.1);
+    }
+
+    textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .hint {
+        font-size: 0.8rem;
+        color: #999;
+        margin-top: 0.4rem;
+        font-style: italic;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    button {
+        flex: 1;
+        min-width: 150px;
+        padding: 1rem;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary) 0%, #b8885f 100%);
+        color: white;
+        box-shadow: 0 4px 14px rgba(196, 154, 108, 0.35);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(196, 154, 108, 0.45);
+    }
+
+    .btn-secondary {
+        background: #f0f0f0;
+        color: var(--primary-deep);
+        border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+        background: var(--primary);
+        color: white;
+    }
+
+    .result-section {
+        background: var(--card-bg);
+        border-radius: var(--radius-xl);
+        padding: 2rem;
+        margin-top: 2rem;
+        box-shadow: var(--shadow-soft);
+        display: none;
+        overflow-x: auto;
+    }
+
+    .result-section.active {
+        display: block;
+    }
+
+    .result-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+    }
+
+    .result-table thead {
+        background: linear-gradient(135deg, var(--primary) 0%, #b8885f 100%);
+        color: white;
+    }
+
+    .result-table th {
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .result-table td {
+        padding: 1rem;
+        border-bottom: 1px solid #e8dcc8;
+        font-size: 0.95rem;
+    }
+
+    .result-table tbody tr {
+        transition: background 0.3s ease;
+    }
+
+    .result-table tbody tr:hover {
+        background: #fafafa;
+    }
+
+    .result-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .guest-number {
+        font-weight: 700;
+        color: var(--primary);
+        width: 40px;
+        text-align: center;
+    }
+
+    .guest-name {
+        font-weight: 600;
+        color: var(--primary-deep);
+    }
+
+    .table-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .table-copy-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.6rem 0.8rem;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+    }
+
+    .table-copy-btn:hover {
+        background: var(--primary-deep);
+    }
+
+    .table-copy-btn.copied {
+        background: #4caf50;
+    }
+
+    .table-wa-btn {
+        background: linear-gradient(135deg, var(--primary) 0%, #b8885f 100%);
+        color: white;
+        border: none;
+        padding: 0.6rem 0.8rem;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+    }
+
+    .table-wa-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(196, 154, 108, 0.3);
+    }
+
+    @media (max-width: 768px) {
+        .result-table th,
+        .result-table td {
+            padding: 0.8rem 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        .table-actions {
+            flex-direction: column;
+        }
+
+        .table-copy-btn,
+        .table-wa-btn {
+            width: 100%;
+        }
+    }
+
+    .info-box {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        color: #856404;
+    }
+
+    .info-box strong {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .preview-section {
+        background: var(--card-bg);
+        border-radius: var(--radius-xl);
+        padding: 2rem;
+        margin-top: 2rem;
+        box-shadow: var(--shadow-soft);
+        display: none;
+        border: 2px solid var(--primary);
+    }
+
+    .preview-section.active {
+        display: block;
+    }
+
+    .preview-box {
+        background: #f5f5f5;
+        border: 1px solid #e0d5c7;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        font-family: "Nunito", sans-serif;
+        font-size: 0.95rem;
+        line-height: 1.8;
+        color: var(--text);
+    }
+
+    .message-btn {
+        flex: 1;
+        padding: 0.8rem;
+        border: 2px solid #e8dcc8;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: white;
+        color: var(--text);
+    }
+
+    .message-btn:hover {
+        border-color: var(--primary);
+        background: rgba(196, 154, 108, 0.1);
+    }
+
+    .message-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+
+    .modal-overlay {
+        display: none;
+    }
+
+    .modal-content {
+        display: none;
+    }
+
+    @media (max-width: 600px) {
+        .container {
+            padding: 1rem;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+        }
+
+        .form-section {
+            padding: 1.5rem;
+        }
+
+        .button-group {
+            flex-direction: column;
+        }
+
+        button {
+            min-width: 100%;
+        }
+
+        .preview-buttons {
+            flex-direction: column;
+        }
+
+        .modal-content {
+            padding: 1.5rem;
+        }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>✨ Sebar Undangan ✨</h1>
+      <p>Dwi Unzila Putri & Ahmad Bakri</p>
+    </header>
+
+    <div class="info-box">
+      <strong>💡 Tips Penting:</strong>
+      Untuk WhatsApp bisa langsung kirim unlimited. Untuk Instagram/Facebook, sebaiknya maksimal 5 orang per jam untuk menghindari akun dianggap spam.
+    </div>
+
+    <div class="form-section">
+      <div class="form-group">
+        <label for="guestNames">📋 Daftar Nama Tamu</label>
+        <textarea id="guestNames" placeholder="Masukkan nama tamu, satu nama per baris&#10;&#10;Contoh:&#10;Bapak Ahmad dan Ibu Siti&#10;Pak Budi&#10;Mbak Rahma dan Keluarga"></textarea>
+        <p class="hint">Gunakan baris baru (Enter) untuk memisahkan nama</p>
+      </div>
+
+      <div class="form-group">
+        <label>📝 Pilih Ucapan Text Pengantar</label>
+        <div class="button-group" style="margin-bottom: 1.5rem;">
+          <button type="button" class="message-btn" data-type="formal" onclick="selectMessage('formal')">Formal</button>
+          <button type="button" class="message-btn" data-type="muslim" onclick="selectMessage('muslim')">Muslim</button>
+          <button type="button" class="message-btn" data-type="nasrani" onclick="selectMessage('nasrani')">Nasrani</button>
+          <button type="button" class="message-btn" data-type="hindu" onclick="selectMessage('hindu')">Hindu</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="messagePreview">✍️ Pesan Pengantar (Bisa Diedit)</label>
+        <textarea id="messagePreview" placeholder="Pesan akan ditampilkan di sini. Gunakan [nama] untuk nama tamu dan [link-undangan] untuk link undangan"></textarea>
+        <p class="hint">Jangan hapus [nama] dan [link-undangan] agar berfungsi dengan baik</p>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" onclick="generateLinks()">🚀 Generate Links</button>
+        <button class="btn-secondary" onclick="clearForm()">🗑️ Clear</button>
+      </div>
+    </div>
+
+    <div class="result-section" id="resultSection">
+      <h2 style="color: var(--primary-deep); margin-bottom: 1.5rem; text-align: center;">📱 Link WhatsApp Siap Terkirim</h2>
+      <div id="resultList"></div>
+    </div>
+  </div>
+
+  <script>
+    const invitationURL = window.location.origin + window.location.pathname.replace('kirim.html', 'index.html');
+
+    const messages = {
+      formal: `Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i *[nama]* untuk menghadiri acara kami.
+
+*Berikut link undangan kami*, untuk info lengkap dari acara bisa kunjungi:
+[link-undangan]
+
+Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.
+
+Terima kasih banyak atas perhatiannya.`,
+
+      muslim: `_Assalamualaikum Warahmatullahi Wabarakatuh_
+
+Yth. *[nama]*
+
+Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:
+
+*Dwi Unzila Putri & Ahmad Bakri*
+
+Berikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :
+
+[link-undangan]
+
+Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.
+
+Mohon maaf perihal undangan hanya di bagikan melalui pesan ini.
+
+Terima kasih banyak atas perhatiannya.
+
+_Wassalamualaikum Warahmatullahi Wabarakatuh_
+
+Kami yang berbahagia,
+_Zila & Bakri_
+`,
+
+      nasrani: `Dengan sukacita, kami mengundang Bapak/Ibu/Saudara/i *[nama]* untuk merayakan hari istimewa kami.
+
+*Silakan buka link undangan berikut untuk detail lengkapnya:*
+[link-undangan]
+
+Kehadiran Bapak/Ibu/Saudara/i akan menjadi kebahagiaan tersendiri bagi kami. Tuhan memberkati.`,
+
+      hindu: `Dengan berdoa kepada Sang Hyang Widhi Wasa, kami mengundang Bapak/Ibu/Saudara/i *[nama]* untuk hadir dalam acara istimewa kami.
+
+*Berikut link undangan kami* untuk informasi lengkapnya:
+[link-undangan]
+
+Kami memohon doa restu dan kehadiran Bapak/Ibu/Saudara/i dalam perayaan ini.
+
+Hatur nuwun. Om Shanti, Shanti, Shanti.`
+    };
+
+    function selectMessage(type) {
+      // Update active button
+      document.querySelectorAll('.message-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`[data-type="${type}"]`).classList.add('active');
+      
+      // Set message in textarea
+      const messagePreview = document.getElementById('messagePreview');
+      messagePreview.value = messages[type];
+    }
+
+    // Initialize with first option selected
+    window.addEventListener('DOMContentLoaded', function() {
+      selectMessage('formal');
+    });
+
+    function generateLinks() {
+      const guestInput = document.getElementById('guestNames').value.trim();
+      const messageInput = document.getElementById('messagePreview').value.trim();
+
+      if (!guestInput) {
+        alert('Mohon masukkan nama tamu terlebih dahulu');
+        return;
+      }
+
+      if (!messageInput) {
+        alert('Mohon masukkan pesan terlebih dahulu');
+        return;
+      }
+
+      const guestNames = guestInput.split('\n').map(name => name.trim()).filter(name => name);
+      const baseMessage = messageInput;
+
+      const resultList = document.getElementById('resultList');
+      resultList.innerHTML = '';
+
+      // Create table
+      let tableHTML = `
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">No</th>
+              <th>Nama Tamu</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      guestNames.forEach((guestName, index) => {
+        const personalizedMessage = baseMessage
+          .replace(/\[nama\]/g, guestName)
+          .replace(/\[link-undangan\]/g, invitationURL);
+
+        const whatsappLink = `https://wa.me/?text=${encodeURIComponent(personalizedMessage)}`;
+
+        tableHTML += `
+          <tr>
+            <td class="guest-number">${index + 1}</td>
+            <td class="guest-name">${guestName}</td>
+            <td>
+              <div class="table-actions">
+                <button class="table-copy-btn" onclick="copyToClipboard(this, '${whatsappLink.replace(/'/g, "\\'")}')">📋 Copy Link</button>
+                <button class="table-wa-btn" onclick="window.open('${whatsappLink}', '_blank')">💬 WhatsApp</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+
+      tableHTML += `
+          </tbody>
+        </table>
+      `;
+
+      resultList.innerHTML = tableHTML;
+
+      document.getElementById('resultSection').classList.add('active');
+      document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyToClipboard(button, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = button.textContent;
+        button.textContent = '✅ Copied';
+        button.classList.add('copied');
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove('copied');
+        }, 2000);
+      }).catch(() => {
+        alert('Gagal menyalin. Silakan coba lagi.');
+      });
+    }
+
+    function clearForm() {
+      document.getElementById('guestNames').value = '';
+      document.getElementById('messagePreview').value = '';
+      document.getElementById('resultSection').classList.remove('active');
+      document.querySelectorAll('.message-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+    }
+
+    // Initialize with first option selected
+    window.addEventListener('DOMContentLoaded', function() {
+      selectMessage('formal');
+    });
+  </script>
+</body>
+</html>
