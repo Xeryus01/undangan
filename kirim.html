@@ -436,57 +436,59 @@
   </div>
 
   <script>
-    const invitationURL = window.location.origin + window.location.pathname.replace('kirim.html', 'index.html');
+    const invitationURL = window.location.origin + window.location.pathname.replace('/kirim.html', '?to=');
 
     const messages = {
-      formal: `Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i *[nama]* untuk menghadiri acara kami.
+      formal: `Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i *[nama]* untuk menghadiri acara kami.
 
-*Berikut link undangan kami*, untuk info lengkap dari acara bisa kunjungi:
-[link-undangan]
+_Berikut link undangan kami_ untuk informasi lengkap mengenai acara:
+*[link-undangan]*
 
-Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.
+Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir serta memberikan doa dan restu.
 
-Terima kasih banyak atas perhatiannya.`,
+Atas perhatian dan kehadirannya, kami ucapkan terima kasih.`,
 
       muslim: `_Assalamualaikum Warahmatullahi Wabarakatuh_
 
 Yth. *[nama]*
 
-Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:
+Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:
 
 *Dwi Unzila Putri & Ahmad Bakri*
 
-Berikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :
+_Berikut link undangan kami_ untuk informasi lengkap mengenai acara:
 
 [link-undangan]
 
-Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.
+Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir serta memberikan doa restu.
 
-Mohon maaf perihal undangan hanya di bagikan melalui pesan ini.
+Mohon maaf apabila undangan ini hanya kami sampaikan melalui pesan singkat.
 
-Terima kasih banyak atas perhatiannya.
+Terima kasih atas perhatian dan doa restunya.
 
 _Wassalamualaikum Warahmatullahi Wabarakatuh_
 
 Kami yang berbahagia,
-_Zila & Bakri_
+*_Zila & Bakri_*
 `,
 
       nasrani: `Dengan sukacita, kami mengundang Bapak/Ibu/Saudara/i *[nama]* untuk merayakan hari istimewa kami.
 
-*Silakan buka link undangan berikut untuk detail lengkapnya:*
+*Silakan membuka link undangan berikut untuk informasi lengkapnya:*
 [link-undangan]
 
-Kehadiran Bapak/Ibu/Saudara/i akan menjadi kebahagiaan tersendiri bagi kami. Tuhan memberkati.`,
+Kehadiran Bapak/Ibu/Saudara/i akan menjadi kebahagiaan tersendiri bagi kami. 
+_Tuhan memberkati._`,
 
       hindu: `Dengan berdoa kepada Sang Hyang Widhi Wasa, kami mengundang Bapak/Ibu/Saudara/i *[nama]* untuk hadir dalam acara istimewa kami.
 
-*Berikut link undangan kami* untuk informasi lengkapnya:
+_Berikut link undangan kami_ untuk informasi lengkap mengenai acara:
 [link-undangan]
 
 Kami memohon doa restu dan kehadiran Bapak/Ibu/Saudara/i dalam perayaan ini.
 
-Hatur nuwun. Om Shanti, Shanti, Shanti.`
+Hatur nuwun. 
+Om Shanti, Shanti, Shanti.`
     };
 
     function selectMessage(type) {
@@ -542,7 +544,7 @@ Hatur nuwun. Om Shanti, Shanti, Shanti.`
       guestNames.forEach((guestName, index) => {
         const personalizedMessage = baseMessage
           .replace(/\[nama\]/g, guestName)
-          .replace(/\[link-undangan\]/g, invitationURL);
+          .replace(/\[link-undangan\]/g, invitationURL+encodeURIComponent(guestName));
 
         const whatsappLink = `https://wa.me/?text=${encodeURIComponent(personalizedMessage)}`;
 
