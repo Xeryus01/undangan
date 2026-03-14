@@ -864,7 +864,7 @@ lightbox.addEventListener("contextmenu", (e) => {
 
 
 // Inisialisasi data dari server setelah DOM siap dan page fully loaded
-document.addEventListener("DOMContentLoaded", () => {
+function initFirestoreData() {
     // Defer Firebase data loading to idle time
     if (typeof requestIdleCallback !== "undefined") {
         requestIdleCallback(() => {
@@ -878,4 +878,11 @@ document.addEventListener("DOMContentLoaded", () => {
             loadGuestbook();
         }, 1000);
     }
-});
+}
+
+// If script runs after DOMContentLoaded, call immediately.
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initFirestoreData);
+} else {
+    initFirestoreData();
+}
